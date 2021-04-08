@@ -19,12 +19,12 @@ enum LogInPlatform {
 }
 
 model User {
-  id        Int      @id @default(autoincrement())
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  username  String   @unique
-  password  String
-  Row       Row[]
+  id             Int      @id @default(autoincrement())
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  username       String   @unique
+  hashedPassword String
+  Row            Row[]
 }
 
 model Row {
