@@ -1,7 +1,7 @@
 import { User } from ".prisma/client";
 import { NextApiRequest } from "next"
 
-export interface IUserNecessary {
+export type IUserNecessary = {
     username: string,
     password: string
 }
@@ -16,13 +16,14 @@ export interface PostUser extends Omit<User, "hashedPassword"> {
 export type hashedString = string;
 
 export interface CustomApiRequest<T> extends NextApiRequest {
-    body: T
+    body: T,
+    method: string
 }
 enum UserPostType {
     create = "create",
     auth = "auth"
 }
-export interface IApiBodyUser {
+export type IApiBodyUser = {
     username: string,
     password: string
 }
@@ -33,4 +34,12 @@ export interface IApiBodyUserPost extends IApiBodyUser {
 export interface IApiBodyUserPut extends IApiBodyUser {
     newUsername: string,
     newPassword: string
+}
+export type IApiBodyToken = {
+    token: string
+}
+export type IApiResToken = {
+    success: boolean,
+    user?: User,
+    error?: string
 }
