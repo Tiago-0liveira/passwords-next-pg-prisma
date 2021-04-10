@@ -1,5 +1,6 @@
 import { User } from ".prisma/client";
 import { NextApiRequest } from "next"
+import { Dispatch, SetStateAction } from "react";
 
 export type IUserNecessary = {
     username: string,
@@ -43,7 +44,9 @@ export type IApiResToken = {
     user?: User,
     error?: string
 }
-export type TuseUser = () => {
-    user: User;
-    loading: boolean;
-}
+export type TuseUser = () => [
+    user: User | undefined,
+    loading: boolean,
+    setUser: Dispatch<SetStateAction<User | undefined>>
+]
+export type TgetFormatedDate = (date: Date) => String
