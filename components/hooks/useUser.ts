@@ -4,7 +4,7 @@ import { IApiResToken, TuseUser } from "../../@types/types";
 
 
 const useUser: TuseUser = () => {
-    const [user, setUser] = useState<{} | User>({});
+    const [user, setUser] = useState<undefined | User>();
     const [loading, setLoading] = useState<boolean>(true)
     useEffect(() => {
 
@@ -32,7 +32,7 @@ const useUser: TuseUser = () => {
 
     }, []);
 
-    return { user: user as User, loading: loading }
+    return [user, loading, setUser]
 }
 
 export default useUser
