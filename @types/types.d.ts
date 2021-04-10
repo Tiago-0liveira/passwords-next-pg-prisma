@@ -43,3 +43,7 @@ export type IApiResToken = {
     user?: User,
     error?: string
 }
+export type TuseUser = () => {
+    user: User;
+    loading: boolean;
+}

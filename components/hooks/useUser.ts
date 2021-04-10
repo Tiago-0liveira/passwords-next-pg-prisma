@@ -1,11 +1,11 @@
 import { User } from "@prisma/client";
 import { useEffect, useState } from "react";
-import { IApiResToken } from "../../@types/types";
+import { IApiResToken, TuseUser } from "../../@types/types";
 
 
-export default function useUser() {
-    const [User, setUser] = useState<{} | User>({});
-
+const useUser: TuseUser = () => {
+    const [user, setUser] = useState<{} | User>({});
+    const [loading, setLoading] = useState<boolean>(true)
     useEffect(() => {
 
         (async () => {
@@ -25,10 +25,14 @@ export default function useUser() {
                 }
             } catch (error) {
                 console.log(`Token auth -> ${JSON.stringify(error)}`)
+            } finally {
+                setLoading(false)
             }
         })()
 
     }, []);
 
-    return User
+    return { user: user as User, loading: loading }
 }
+
+export default useUser
