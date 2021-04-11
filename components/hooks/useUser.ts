@@ -10,10 +10,10 @@ const useUser: TuseUser = () => {
 
         (async () => {
             try {
-                if (document.cookie) {
+                if (JSON.parse(document.cookie).token.length > 20) {
                     const res = await fetch("/api/token", {
-                        method: "POST", body: JSON.stringify({
-                            token: JSON.stringify(document.cookie)
+                        method: "POST", headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({
+                            token: JSON.parse(document.cookie).token
                         })
                     })
                     const body: IApiResToken = await res.json()
