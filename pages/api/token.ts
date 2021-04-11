@@ -5,6 +5,9 @@ import prisma from "../../prisma/db"
 
 export default async (req: CustomApiRequest<IApiBodyToken>, res: NextApiResponse<IApiResToken>) => {
     if (req.method === "POST") {
+        if (!req.body.token) {
+            return res.status(400).json({ success: false, error: "Token not valid" })
+        }
         const user: User | null = await prisma.user.findFirst({
             where: {
                 loginToken: req.body.token
