@@ -2,11 +2,12 @@
 	--b1: rgb(9, 32, 63);
 	--b2: linear-gradient(
 		144deg,
-		rgba(9, 32, 63, 1) 14%,
+		var(--b1) 14%,
 		rgba(99, 149, 187, 1) 100%
 	);
-	--bc1: #09203f;
+	--bc1: rgb(9, 32, 63);
 	--bc2: #6395bb;
+	--bcwrapper: rgba(255, 255, 255, 0.486);
 }
 html,
 body {
@@ -30,5 +31,12 @@ a {
 button,
 button:active {
 	border: none;
+	outline: none;
+}
+input {
+	border: none;
+	background: transparent;
+}
+input:focus {
 	outline: none;
 }
