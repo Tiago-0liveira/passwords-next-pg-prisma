@@ -11,8 +11,10 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 - Some more little things like FontAwesomeIcons and hashing things
 ### TODO:
 
--   [ ]: Rows can store links so they have images for each group
--   [ ]: Sort depending on sites or usernames
--   [ ]: Be able to store data like if i logged in with google auth
+- [ ]: Rows can store links so they have images for each group
+- [ ]: Sort depending on sites or usernames
+- [ ]: Be able to store data like if i logged in with google auth
+- [ ]: Have a switch from old mode to new mode
+- [ ]: Old mode will be rows and new mode will be beautiful cards
 
 #### Dev -> [Tiago](https://github.com/Tiago-0liveira)
