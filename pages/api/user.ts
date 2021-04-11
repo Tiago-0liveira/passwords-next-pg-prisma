@@ -3,18 +3,12 @@ import { User } from "@prisma/client"
 import hash from '../../helpers/hash'
 import { CustomApiRequest, IApiBodyUser, IApiBodyUserPost, IApiBodyUserPut } from '../../@types/types'
 import prisma from "../../prisma/db"
+import { v4 } from 'uuid'
 
 export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, res: NextApiResponse) => {
     if (req.method === "GET") {
         try {
-            res.status(200).json(await prisma.user.findMany({
-                select: {
-                    id: true,
-                    updatedAt: true,
-                    createdAt: true,
-                    username: true, hashedPassword: true
-                }
-            }))
+            res.status(200).json(await prisma.user.findMany())
         } catch (error) {
             res.status(500).json({ error: "Internal server error!" })
         }
@@ -22,19 +16,16 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
         const PostBody = req.body as IApiBodyUserPost
         if (PostBody.type === "create") {
             try {
+                const token = v4()
                 const user: User = await prisma.user.create({
                     data: {
                         username: PostBody.username,
-                        hashedPassword: hash(PostBody.password)
+                        hashedPassword: hash(PostBody.password),
+                        loginToken: token
                     }
                 })
                 res.status(200).json({
-                    user: {
-                        username: user.username,
-                        updatedAt: user.updatedAt,
-                        createdAt: user.createdAt,
-                        id: user.id
-                    }
+                    user
                 })
             } catch (error) {
                 res.status(500).json(error)
@@ -47,14 +38,44 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
                     }
                 })
                 if (user) {
-                    res.status(200).json({ success: hash(PostBody.password) === hash(user.hashedPassword) })
+                    const correctPass = hash(PostBody.password) === user.hashedPassword
+
+                    if (correctPass) {
+                        const token = v4()
+                        res.status(200).json({ success: true, user, token })
+                        const newUser = await prisma.user.update({
+                            where: {
+                                username: PostBody.username
+                            },
+                            data: {
+                                loginToken: token
+                            }
+                        })
+                        console.log(newUser)
+                    } else {
+                        res.status(200).json({ success: false })
+                    }
                 } else {
                     res.status(400).json({ error: `${PostBody.username} does not exist!` })
                 }
             } catch (error) {
                 res.status(500).json(error)
             }
-        } else {
+        } else if (PostBody.type === "logOut") {
+            try {
+                const user = await prisma.user.update({
+                    where: {
+                        id: PostBody.id
+                    }, data: {
+                        loginToken: null
+                    }
+                })
+                res.status(200).json({ success: true })
+            } catch (error) {
+                res.status(500).json({ success: false, error })
+            }
+        }
+        else {
             res.status(400).json({ error: `${PostBody.type} is not a valid type!` })
         }
     } else if (req.method === "PUT") {
