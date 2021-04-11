@@ -31,6 +31,7 @@ export type IApiBodyUser = {
 
 export interface IApiBodyUserPost extends IApiBodyUser {
     type: UserPostType,
+    id?: number
 }
 export interface IApiBodyUserPut extends IApiBodyUser {
     newUsername: string,
