@@ -16,7 +16,7 @@ const App = () => {
     const [user] = useUser()
     const [rows, setRows] = useState<false | Row[]>(false)
     const [inputVal, setinputVal] = useState("")
-    const [WBOL, setWBOL] = useWBOL();
+    const [, setWBOL] = useWBOL();
 
     useEffect(() => {
         user && fetch("/api/row", {
