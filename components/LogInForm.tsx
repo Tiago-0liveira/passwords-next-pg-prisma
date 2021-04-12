@@ -10,11 +10,9 @@ import getFormatedDate from "../helpers/getFormatedDate"
 import HEADERS from "../constants/consts"
 import { LogInFormState } from "../constants/consts"
 
-interface LogInProps {
-    WBOLFunc: (value: boolean) => void
-}
+interface LogInProps { WBOLFunc: (value: boolean) => void }
 export default function LogInForm({ WBOLFunc }: LogInProps) {
-    let [user, loading, setUser] = useUser();
+    let [user, , setUser] = useUser();
     const [state, setState] = useState<LogInFormState>(LogInFormState.LogIn)
     const [Username, setUsername] = useState("")
     const [Password, setPassword] = useState("")
