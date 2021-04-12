@@ -14,7 +14,3 @@ export enum LogInFormState {
     SignIn,
     App
 }
-export enum SortState {
-    Site,
-    Username
-}
