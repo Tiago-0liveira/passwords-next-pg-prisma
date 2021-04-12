@@ -14,3 +14,9 @@ export enum LogInFormState {
     SignIn,
     App
 }
+
+export enum AppStyle {
+    Old,
+    OldEnhanced,
+    New
+}
