@@ -2,12 +2,12 @@ import Link from "next/link"
 import styles from "../styles/app.module.scss"
 import LogInStyles from "../styles/components.LogInForm.module.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowDown, faArrowLeft, faPlus, faUser } from '@fortawesome/free-solid-svg-icons'
-import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
+import { faArrowLeft, faPlus, faUser } from '@fortawesome/free-solid-svg-icons'
+import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { Row } from ".prisma/client"
 import Loading from "../components/loading"
 import RowComponent from "../components/row"
-import { HEADERS, SortState } from "../constants/consts"
+import { HEADERS } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
 import { User } from "@prisma/client"
 import useWBOL from "../components/hooks/useWBOL"
@@ -15,8 +15,6 @@ import useWBOL from "../components/hooks/useWBOL"
 const App = () => {
     const [user] = useUser()
     const [rows, setRows] = useState<false | Row[]>(false)
-    const [focus, setFocus] = useState("")
-    const [sortState, setsortState] = useState<SortState>(SortState.Site)
     const [inputVal, setinputVal] = useState("")
     const [WBOL, setWBOL] = useWBOL();
 
@@ -56,7 +54,7 @@ const App = () => {
                 </div>
                 <div className={styles.navMiddle}>
                     <div className={styles.inputWrapper}>
-                        <input type="text" placeholder="Search" onLoad={(e) => { console.log(e) }} onChange={(e) => setinputVal(e.target.value)} />
+                        <input type="text" placeholder="Search" autoFocus onLoad={(e) => { console.log(e) }} onChange={(e) => setinputVal(e.target.value)} />
                     </div>
                 </div>
                 <div className={styles.navRight}>
