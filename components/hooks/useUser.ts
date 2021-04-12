@@ -1,6 +1,7 @@
 import { User } from "@prisma/client";
 import { useEffect, useState } from "react";
 import { IApiResToken, TuseUser } from "../../@types/types";
+import { HEADERS } from "../../constants/consts";
 
 
 const useUser: TuseUser = () => {
@@ -12,7 +13,7 @@ const useUser: TuseUser = () => {
             try {
                 if (JSON.parse(document.cookie).token.length > 20) {
                     const res = await fetch("/api/token", {
-                        method: "POST", headers: { 'Content-Type': 'application/json', }, body: JSON.stringify({
+                        method: "POST", headers: HEADERS, body: JSON.stringify({
                             token: JSON.parse(document.cookie).token
                         })
                     })
