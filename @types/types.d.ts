@@ -1,6 +1,9 @@
 import { User } from ".prisma/client";
 import { NextApiRequest } from "next"
 import { Dispatch, SetStateAction } from "react";
+import { UserPostType } from "../constants/consts";
+
+export default {}
 
 export type IUserNecessary = {
     username: string,
@@ -20,10 +23,7 @@ export interface CustomApiRequest<T> extends NextApiRequest {
     body: T,
     method: string
 }
-enum UserPostType {
-    create = "create",
-    auth = "auth"
-}
+
 export type IApiBodyUser = {
     username: string,
     password: string
