@@ -82,54 +82,6 @@ $content-br: 2px;
 	.wrapper {
 		width: 100vw;
 		height: calc(100vh - #{$nav-height});
-		.content {
-			background-color: #8d99ae;
-			border-radius: $content-br;
-			display: flex;
-			align-items: center;
-			flex-direction: column;
-			width: 70vw;
-			height: 85vh;
-			.header {
-				text-align: center;
-				position: sticky;
-				width: 100%;
-				height: $header-height;
-				background-color: #ecb900;
-				border-radius: $content-br $content-br 0 0;
-				display: flex;
-				justify-content: center;
-				align-items: center;
-				border-bottom: 3px solid var(--bc1);
-				div {
-					flex: 1;
-					font-weight: 600;
-					user-select: none;
-					font-size: 20px;
-					svg {
-						margin-left: 0.5em;
-					}
-				}
-			}
-			.rows {
-				width: 100%;
-				max-height: calc(85vh - #{$header-height});
-				overflow-y: scroll;
-				user-select: all;
-				overflow: overlay;
-				&::-webkit-scrollbar {
-					width: 10px;
-					background-color: transparent;
-				}
-				&::-webkit-scrollbar-thumb {
-					border-radius: 5px;
-					background-color: var(--bc1);
-					transition: all 0.2s;
-					&:active {
-						background-color: var(--bc2);
-					}
-				}
-			}
-		}
+		
 	}
 }

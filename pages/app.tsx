@@ -4,14 +4,13 @@ import LogInStyles from "../styles/components.LogInForm.module.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPlus, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { Row } from ".prisma/client"
-import Loading from "../components/loading"
-import RowComponent from "../components/row"
 import { HEADERS } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
-import { User } from "@prisma/client"
+import { User, Row } from "@prisma/client"
 import useWBOL from "../components/hooks/useWBOL"
 import Head from "next/head"
+import RowsOld from "../components/RowsOld"
+
 
 const App = () => {
     const [user] = useUser()
@@ -69,38 +68,7 @@ const App = () => {
                 </div>
             </nav>
             <div className={[styles.wrapper, styles.flex].join(" ")}>
-                <div className={styles.content}>
-                    <div className={styles.header}>
-                        <div>
-                            <div>
-                                Site
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Name
-                            </div>
-                        </div>
-                        <div>
-                            <div>
-                                Password
-                            </div>
-                        </div>
-                    </div>
-                    <div className={styles.rows}>
-                        {rows ?
-                            (rows as Row[]).sort((a: Row, b: Row) =>
-                                a.site.toLowerCase() > b.site.toLowerCase() ? 1 : -1
-                            ).filter((v: Row) =>
-                                v.site.includes(inputVal) ||
-                                v.email.includes(inputVal) ||
-                                v.username?.includes(inputVal)
-                            ).map((row: Row, i) =>
-                                <RowComponent {...row} key={i} />
-                            )
-                            : <Loading />}
-                    </div>
-                </div>
+                <RowsOld rows={rows} inputVal={inputVal.toLowerCase()} />
             </div>
         </div>
     )
