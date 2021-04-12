@@ -92,9 +92,7 @@ const App = () => {
                                 v.email.includes(inputVal) ||
                                 v.username?.includes(inputVal)
                             ).map((row: Row, i) =>
-                                <RowComponent {...row} key={i} onClick={(e: MouseEvent) => {
-
-                                }} />
+                                <RowComponent {...row} key={i} />
                             )
                             : <Loading />}
                     </div>
