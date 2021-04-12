@@ -7,23 +7,20 @@ import { faLock, faUser, faCalendarAlt, faIdCard } from '@fortawesome/free-solid
 import { User } from "@prisma/client"
 import { useState } from "react"
 import getFormatedDate from "../helpers/getFormatedDate"
+import HEADERS from "../constants/consts"
+import { LogInFormState } from "../constants/consts"
 
-enum State {
-    LogIn,
-    SignIn,
-    App
+interface LogInProps {
+    WBOLFunc: (value: boolean) => void
 }
-
-export default function LogInForm() {
+export default function LogInForm({ WBOLFunc }: LogInProps) {
     let [user, loading, setUser] = useUser();
-    const [state, setState] = useState<State>(State.LogIn)
+    const [state, setState] = useState<LogInFormState>(LogInFormState.LogIn)
     const [Username, setUsername] = useState("")
     const [Password, setPassword] = useState("")
     const submitLogInForm = () => {
         fetch("/api/user", {
-            method: "POST", headers: {
-                'Content-Type': 'application/json',
-            }, body: JSON.stringify({
+            method: "POST", headers: HEADERS, body: JSON.stringify({
                 type: "auth",
                 username: Username,
                 password: Password,
@@ -39,9 +36,8 @@ export default function LogInForm() {
     }
     const submitSignInForm = () => {
         fetch("/api/user", {
-            method: "POST", headers: {
-                'Content-Type': 'application/json',
-            }, body: JSON.stringify({
+            method: "POST", headers: HEADERS
+            , body: JSON.stringify({
                 type: "create",
                 username: Username,
                 password: Password,
@@ -50,7 +46,7 @@ export default function LogInForm() {
             if (data.user !== undefined) {
                 setUser(data.user)
                 document.cookie = JSON.stringify({ token: data.user.loginToken })
-                setState(State.LogIn)
+                setState(LogInFormState.LogIn)
             }
             setUsername("")
             setPassword("")
@@ -58,9 +54,7 @@ export default function LogInForm() {
     }
     const LogOut = () => {
         fetch("/api/user", {
-            method: "POST", headers: {
-                'Content-Type': 'application/json',
-            }, body: JSON.stringify({
+            method: "POST", headers: HEADERS, body: JSON.stringify({
                 type: "logOut",
                 id: (user as User).id
             })
@@ -84,7 +78,7 @@ export default function LogInForm() {
                         <button className={[styles.button, styles.buttonLogOut].join(" ")} onClick={LogOut}>Log Out</button>
 
                         <Link href="/app">
-                            <button className={[styles.button, styles.buttonShowApp].join(" ")} >
+                            <button className={[styles.button, styles.buttonShowApp].join(" ")} onClick={() => { WBOLFunc(false) }}>
                                 Show App
                             </button>
                         </Link>
@@ -93,7 +87,7 @@ export default function LogInForm() {
             </div>
         )
     } else {
-        const LogIn = state === State.LogIn
+        const LogIn = state === LogInFormState.LogIn
 
         return (
             <form className={styles.LogInForm} onSubmit={(e) => {
@@ -112,7 +106,7 @@ export default function LogInForm() {
                     </div>
                     <div className={styles.bottom}>
                         <span onClick={() => {
-                            setState(LogIn ? State.SignIn : State.LogIn)
+                            setState(LogIn ? LogInFormState.SignIn : LogInFormState.LogIn)
                         }}>{LogIn ? "I Don't yet have an account!" : "I Already have an account!"}</span><br />
                     </div>
                     <div className={styles.bottom2}>
