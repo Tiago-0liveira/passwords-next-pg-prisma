@@ -11,6 +11,7 @@ import { HEADERS } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
 import { User } from "@prisma/client"
 import useWBOL from "../components/hooks/useWBOL"
+import Head from "next/head"
 
 const App = () => {
     const [user] = useUser()
@@ -37,6 +38,9 @@ const App = () => {
 
     return (
         <div className={[styles.Wrapper].join(" ")}>
+            <Head>
+                <title>Main App</title>
+            </Head>
             <nav className={[styles.nav].join(" ")}>
                 <div className={styles.navLeft}>
                     <Link href="/" >
