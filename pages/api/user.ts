@@ -4,6 +4,7 @@ import hash from '../../helpers/hash'
 import { CustomApiRequest, IApiBodyUser, IApiBodyUserPost, IApiBodyUserPut } from '../../@types/types'
 import prisma from "../../prisma/db"
 import { v4 } from 'uuid'
+import { UserPostType } from '../../constants/consts'
 
 export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, res: NextApiResponse) => {
     if (req.method === "GET") {
@@ -14,7 +15,7 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
         }
     } else if (req.method === "POST") {
         const PostBody = req.body as IApiBodyUserPost
-        if (PostBody.type === "create") {
+        if (PostBody.type === UserPostType.create) {
             try {
                 const token = v4()
                 const user: User = await prisma.user.create({
@@ -30,7 +31,7 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
             } catch (error) {
                 res.status(500).json(error)
             }
-        } else if (PostBody.type === "auth") {
+        } else if (PostBody.type === UserPostType.auth) {
             try {
                 const user: User | null = await prisma.user.findFirst({
                     where: {
@@ -70,7 +71,11 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
                         loginToken: null
                     }
                 })
-                res.status(200).json({ success: true })
+                if (user) {
+                    res.status(200).json({ success: true })
+                } else {
+                    res.status(400).json({ success: false, error: user })
+                }
             } catch (error) {
                 res.status(500).json({ success: false, error })
             }
