@@ -4,7 +4,7 @@ import LogInStyles from "../styles/components.LogInForm.module.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPlus, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { HEADERS } from "../constants/consts"
+import { HEADERS, RowPostType } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
 import { User, Row } from "@prisma/client"
 import useWBOL from "../components/hooks/useWBOL"
@@ -23,7 +23,7 @@ const App = () => {
             method: "POST",
             headers: HEADERS,
             body: JSON.stringify({
-                type: "get",
+                type: RowPostType.get,
                 userId: (user as User).id
             })
         }).then(res => res.json()).then((data: Row[]) => {

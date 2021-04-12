@@ -6,8 +6,14 @@ export const HEADERS = {
 }
 
 export enum UserPostType {
-    create = "create",
-    auth = "auth"
+    create,
+    auth,
+    logOut
+}
+export enum RowPostType {
+    get,
+    create,
+    all
 }
 export enum LogInFormState {
     LogIn,

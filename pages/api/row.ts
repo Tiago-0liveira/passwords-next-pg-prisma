@@ -1,4 +1,5 @@
 import type { NextApiRequest, NextApiResponse } from 'next'
+import { RowPostType } from '../../constants/consts'
 import prisma from "../../prisma/db"
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -9,9 +10,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(500).json({ error: "Internal server error!" })
         }
     } else if (req.method === "POST") {
-        if (req.body.type === "get") {
+        if (req.body.type === RowPostType.get) {
             const rows = await prisma.user.findFirst({
-
                 select: { Row: true },
                 where: { id: req.body.userId }
             })
@@ -20,7 +20,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             } else {
                 res.status(400).json({ success: false, error: rows })
             }
-        } else if (req.body.type === "create") {
+        } else if (req.body.type === RowPostType.create) {
             const row = await prisma.row.create({
                 data: {
                     ...req.body.data
@@ -47,7 +47,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
             res.status(400).json({ success: false, error: row })
         }
     } else if (req.method === "DELETE") {
-        if (req.body.type === "all") {
+        if (req.body.type === RowPostType.all) {
             const rows = await prisma.row.deleteMany()
             if (rows) {
                 res.status(200).json({ rows })

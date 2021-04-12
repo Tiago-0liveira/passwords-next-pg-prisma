@@ -13,7 +13,9 @@ const useUser: TuseUser = () => {
             try {
                 if (JSON.parse(document.cookie).token.length > 20) {
                     const res = await fetch("/api/token", {
-                        method: "POST", headers: HEADERS, body: JSON.stringify({
+                        method: "POST",
+                        headers: HEADERS,
+                        body: JSON.stringify({
                             token: JSON.parse(document.cookie).token
                         })
                     })

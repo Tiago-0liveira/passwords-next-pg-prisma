@@ -1,12 +1,13 @@
-import type { NextApiResponse } from 'next'
+import type { NextApiRequest, NextApiResponse } from 'next'
 import { User } from "@prisma/client"
 import hash from '../../helpers/hash'
-import { CustomApiRequest, IApiBodyUser, IApiBodyUserPost, IApiBodyUserPut } from '../../@types/types'
+import { IApiBodyUser, IApiBodyUserPost, IApiBodyUserPut } from '../../@types/types'
 import prisma from "../../prisma/db"
 import { v4 } from 'uuid'
 import { UserPostType } from '../../constants/consts'
 
-export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, res: NextApiResponse) => {
+export default async (req: NextApiRequest, res: NextApiResponse) => {
+
     if (req.method === "GET") {
         try {
             res.status(200).json(await prisma.user.findMany())
@@ -14,6 +15,7 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
             res.status(500).json({ error: "Internal server error!" })
         }
     } else if (req.method === "POST") {
+        if (typeof req.body === "string") { req.body = JSON.parse(req.body) }
         const PostBody = req.body as IApiBodyUserPost
         if (PostBody.type === UserPostType.create) {
             try {
@@ -52,7 +54,6 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
                                 loginToken: token
                             }
                         })
-                        console.log(newUser)
                     } else {
                         res.status(200).json({ success: false })
                     }
@@ -62,7 +63,7 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
             } catch (error) {
                 res.status(500).json(error)
             }
-        } else if (PostBody.type === "logOut") {
+        } else if (PostBody.type === UserPostType.logOut) {
             try {
                 const user = await prisma.user.update({
                     where: {
@@ -94,11 +95,9 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
                 }
             })
             if (isAuth) {
-                console.log("here")
                 let data: { hashedPassword?: string, username?: string } = {}
                 if (PutBody.newPassword) data.hashedPassword = hash(PutBody.newPassword)
                 if (PutBody.newUsername) data.username = PutBody.newUsername
-                console.log(`data -> ${JSON.stringify(data)}`)
                 if (!data.hashedPassword && !data.username) {
                     res.status(400).json({ error: "New Password or Username forgotton!" })
                 }
@@ -108,7 +107,6 @@ export default async (req: CustomApiRequest<IApiBodyUser | IApiBodyUserPost>, re
                     },
                     data
                 })
-                console.log(user)
                 res.status(user ? 200 : 400).json(user ? { user } : { error: "Username or Password wrong!" })
             } else {
                 res.status(400).json({ error: `${PutBody.username} does not exist!` })

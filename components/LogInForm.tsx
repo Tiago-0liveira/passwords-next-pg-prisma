@@ -7,7 +7,7 @@ import { faLock, faUser, faCalendarAlt, faIdCard } from '@fortawesome/free-solid
 import { User } from "@prisma/client"
 import { useState } from "react"
 import getFormatedDate from "../helpers/getFormatedDate"
-import HEADERS from "../constants/consts"
+import HEADERS, { UserPostType } from "../constants/consts"
 import { LogInFormState } from "../constants/consts"
 
 interface LogInProps { WBOLFunc: (value: boolean) => void }
@@ -18,8 +18,10 @@ export default function LogInForm({ WBOLFunc }: LogInProps) {
     const [Password, setPassword] = useState("")
     const submitLogInForm = () => {
         fetch("/api/user", {
-            method: "POST", headers: HEADERS, body: JSON.stringify({
-                type: "auth",
+            method: "POST",
+            headers: HEADERS,
+            body: JSON.stringify({
+                type: UserPostType.auth,
                 username: Username,
                 password: Password,
             })
@@ -34,9 +36,10 @@ export default function LogInForm({ WBOLFunc }: LogInProps) {
     }
     const submitSignInForm = () => {
         fetch("/api/user", {
-            method: "POST", headers: HEADERS
-            , body: JSON.stringify({
-                type: "create",
+            method: "POST",
+            headers: HEADERS,
+            body: JSON.stringify({
+                type: UserPostType.create,
                 username: Username,
                 password: Password,
             })
@@ -52,8 +55,10 @@ export default function LogInForm({ WBOLFunc }: LogInProps) {
     }
     const LogOut = () => {
         fetch("/api/user", {
-            method: "POST", headers: HEADERS, body: JSON.stringify({
-                type: "logOut",
+            method: "POST",
+            headers: HEADERS,
+            body: JSON.stringify({
+                type: UserPostType.logOut,
                 id: (user as User).id
             })
         }).then(res => res.json()).then(data => data)
