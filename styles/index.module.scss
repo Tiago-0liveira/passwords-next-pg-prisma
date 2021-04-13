@@ -1,3 +1,5 @@
+@import "/styles/vars";
+
 .wrapper {
 	width: 100vw;
 	height: 100vh;
@@ -7,7 +9,7 @@
 	.content {
 		width: 50vw;
 		height: 50vh;
-		background-color: var(--bcwrapper);
+		background-color: $bcwrapper;
 		border-radius: 15px;
 		display: flex;
 		justify-content: center;

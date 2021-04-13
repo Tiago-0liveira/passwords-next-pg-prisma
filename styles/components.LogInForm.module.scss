@@ -1,3 +1,5 @@
+@import "/styles/vars";
+
 .button {
 	color: white;
 	position: relative;
@@ -22,7 +24,7 @@
 	line-height: 18px;
 	transition: border-bottom 0.3s ease;
 	&::placeholder {
-		color: rgba(0, 0, 0, 0.424);
+		color: $input-placeholder-color;
 		font-size: 15px;
 		user-select: none;
 	}

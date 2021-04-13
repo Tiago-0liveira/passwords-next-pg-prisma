@@ -1,8 +1,7 @@
-$nav-height: 70px;
-$header-height: 38px;
-$content-br: 2px;
+@import "/styles/vars";
+
 .content {
-	background-color: #8d99ae;
+	background-color: $row-Old-bg;
 	border-radius: $content-br;
 	display: flex;
 	align-items: center;
@@ -14,12 +13,12 @@ $content-br: 2px;
 		position: sticky;
 		width: 100%;
 		height: $header-height;
-		background-color: #ecb900;
+		background-color: $row-header-bg;
 		border-radius: $content-br $content-br 0 0;
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		border-bottom: 3px solid var(--bc1);
+		border-bottom: 3px solid $bc1;
 		div {
 			flex: 1;
 			font-weight: 600;
@@ -42,10 +41,10 @@ $content-br: 2px;
 		}
 		&::-webkit-scrollbar-thumb {
 			border-radius: 5px;
-			background-color: var(--bc1);
+			background-color: $bc1;
 			transition: all 0.2s;
 			&:active {
-				background-color: var(--bc2);
+				background-color: $bc2;
 			}
 		}
 	}
