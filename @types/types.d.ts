@@ -1,7 +1,7 @@
-import { User } from ".prisma/client";
+import { LogInPlatform, User } from "@prisma/client";
 import { NextApiRequest } from "next"
 import { Dispatch, SetStateAction } from "react";
-import { UserPostType } from "../constants/consts";
+import { LogInFormState, UserPostType } from "../constants/consts";
 
 export default {}
 
@@ -51,3 +51,44 @@ export type TuseUser = () => [
     setUser: Dispatch<SetStateAction<User | undefined>>
 ]
 export type TgetFormatedDate = (date: Date) => String
+export type TModalData = {
+    usernames: string[],
+    sites: string[],
+    emails: string[]
+}
+export interface IModalData {
+    type: ModalType,
+    isOpen: boolean,
+    data?: TModalData
+}
+type notificationManager = (
+    message: string,
+    title?: string,
+    timeOut?: number,
+    callback?: Function,
+    priority?: boolean
+) => void
+export interface ModalProps extends IModalData {
+    setModalData: Dispatch<SetStateAction<IModalData>>,
+    notificationManager: {
+        info: notificationManager
+        error: notificationManager
+        success: notificationManager
+        warning: notificationManagern
+    },
+    extraData: { userId: number | undefined }
+    onConfirm: (row?: Row) => void
+}
+type ModalNewRowDataBase = {
+    site: string,
+    email: string,
+}
+export interface ModalNewRowDataWithLogin extends ModalNewRowDataBase {
+    logInWithPlatform: string,
+}
+export interface ModalNewRowDataWithoutLogin extends ModalNewRowDataBase {
+    username: string,
+    password: string
+}
+
+export type ModalNewRowData = ModalNewRowDataWithLogin | ModalNewRowDataWithoutLogin
