@@ -9,6 +9,7 @@ import { useState } from "react"
 import getFormatedDate from "../helpers/getFormatedDate"
 import HEADERS, { UserPostType } from "../constants/consts"
 import { LogInFormState } from "../constants/consts"
+import clsx from "clsx"
 
 interface LogInProps { WBOLFunc: (value: boolean) => void }
 export default function LogInForm({ WBOLFunc }: LogInProps) {
@@ -78,10 +79,10 @@ export default function LogInForm({ WBOLFunc }: LogInProps) {
                         <p><FontAwesomeIcon icon={faIdCard} /> Id: {(user as User).id}</p>
                     </div>
                     <div className={styles.buttons}>
-                        <button className={[styles.button, styles.buttonLogOut].join(" ")} onClick={LogOut}>Log Out</button>
+                        <button className={clsx(styles.button, styles.buttonLogOut)} onClick={LogOut}>Log Out</button>
 
                         <Link href="/app">
-                            <button className={[styles.button, styles.buttonShowApp].join(" ")} onClick={() => { WBOLFunc(false) }}>
+                            <button className={clsx(styles.button, styles.buttonShowApp)} onClick={() => { WBOLFunc(false) }}>
                                 Show App
                             </button>
                         </Link>
