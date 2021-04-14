@@ -6,3 +6,4 @@ declare namespace NodeJS {
         SAL: string
     }
 }
+declare module 'react-notifications'
