@@ -2,7 +2,7 @@ import { Row } from "@prisma/client"
 import styles from "../styles/rowsOld.module.scss"
 import Loading from "./loading"
 import RowComponent from "./row"
-
+import clsx from "clsx"
 interface RowsOldProps {
     rows: Row[] | false,
     inputVal: string
@@ -28,7 +28,7 @@ const RowsOld = ({ rows, inputVal }: RowsOldProps) => {
                     </div>
                 </div>
             </div>
-            <div className={styles.rows}>
+            <div className={clsx(styles.rows, !rows && styles.loading)}>
                 {rows ?
                     (rows as Row[]).sort((a: Row, b: Row) =>
                         a.site.toLowerCase() > b.site.toLowerCase() ? 1 : -1
