@@ -6,7 +6,6 @@ import { ModalNewRowData, ModalProps } from "../@types/types"
 import { HEADERS, LogInPlatforms, ModalEventName, ModalType, RowPostType } from "../constants/consts"
 import styles from "../styles/component.modal.module.scss"
 import clsx from "clsx"
-import 'react-notifications/lib/notifications.css';
 
 const Modal = ({ setModalData, type, isOpen, onConfirm, data, notificationManager, extraData }: ModalProps) => {
     const [LogInWithPlatForm, setLogInWithPlatForm] = useState<boolean>(false)
@@ -16,7 +15,7 @@ const Modal = ({ setModalData, type, isOpen, onConfirm, data, notificationManage
     const [LogInPlatform, setLogInPlatform] = useState<string>("")
     const [Username, setusername] = useState<string>("")
     const [Password, setpassword] = useState<string>("")
-    
+
     const submitConfirmation = () => {
         onConfirm()
         setModalData(prevData => { return { ...prevData, isOpen: false } })

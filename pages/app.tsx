@@ -6,7 +6,7 @@ import { faArrowLeft, faPlus, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { HEADERS, ModalType, RowPostType } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
-import { User, Row, LogInPlatform } from "@prisma/client"
+import { User, Row } from "@prisma/client"
 import useWBOL from "../components/hooks/useWBOL"
 import Head from "next/head"
 import RowsOld from "../components/RowsOld"
@@ -24,8 +24,8 @@ const App = () => {
         type: ModalType.New,
         isOpen: false
     })
-    const [onConfirm, setOnConfirm] = useState<() => void>(() => addNewRow)
-    const [selectedRows, setSelectedRows] = useState<HTMLDivElement>()
+    const [onConfirm,] = useState<() => void>(() => addNewRow)
+    /* const [selectedRows, setSelectedRows] = useState<HTMLDivElement>()*/
 
 
 
