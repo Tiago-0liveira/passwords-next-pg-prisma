@@ -44,3 +44,12 @@ export const LogInPlatforms:
         { value: LogInPlatform.Reddit, icon: faReddit },
         { value: LogInPlatform.Discord, icon: faDiscord },
     ]
+
+export const LogInPlatformIconColors:
+    { [key: string]: string } = {
+    [LogInPlatform.Google]: "#007bff",
+    [LogInPlatform.Git]: "white",
+    [LogInPlatform.Facebook]: "#007bff",
+    [LogInPlatform.Reddit]: "#FF5700",
+    [LogInPlatform.Discord]: "#7289da",
+}
