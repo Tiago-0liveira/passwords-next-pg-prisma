@@ -55,16 +55,23 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 res.status(500).json({ error: rows })
             }
         } else {
+            const deleteByUuid = async (uuid: string) =>
+                await prisma.row.delete({
+                    where: {
+                        uuid: uuid
+                    }
+                })
 
-            const row = await prisma.row.delete({
-                where: {
-                    uuid: req.body.uuid
+            if (typeof req.body.uuid === "string") {
+                const row = await deleteByUuid(req.body.uuid)
+                if (row) {
+                    res.status(200).json({ success: true, row })
+                } else {
+                    res.status(400).json({ success: false, error: row })
                 }
-            })
-            if (row) {
-                res.status(200).json({ success: true, row })
-            } else {
-                res.status(400).json({ success: false, error: row })
+            } else if (typeof req.body.uuid === "object") {
+                req.body.uuid.forEach((uuid: string) => deleteByUuid(uuid))
+                res.status(200).json({ success: true })
             }
         }
     }

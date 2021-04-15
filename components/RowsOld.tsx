@@ -3,11 +3,12 @@ import styles from "../styles/rowsOld.module.scss"
 import Loading from "./loading"
 import RowComponent from "./row"
 import clsx from "clsx"
+import { Dispatch, SetStateAction } from "react"
 interface RowsOldProps {
     rows: Row[] | false,
-    inputVal: string
+    selectedRows: Dispatch<SetStateAction<string[]>>
 }
-const RowsOld = ({ rows, inputVal }: RowsOldProps) => {
+const RowsOld = ({ rows, selectedRows }: RowsOldProps) => {
 
     return (
         <div className={styles.content}>
@@ -30,14 +31,8 @@ const RowsOld = ({ rows, inputVal }: RowsOldProps) => {
             </div>
             <div className={clsx(styles.rows, !rows && styles.loading)}>
                 {rows ?
-                    (rows as Row[]).sort((a: Row, b: Row) =>
-                        a.site.toLowerCase() > b.site.toLowerCase() ? 1 : -1
-                    ).filter((v: Row) =>
-                        v.site.toLowerCase().includes(inputVal) ||
-                        v.email.toLowerCase().includes(inputVal) ||
-                        v.username?.toLowerCase()?.includes(inputVal)
-                    ).map((row: Row, i) =>
-                        <RowComponent {...row} key={i} />
+                    rows.map((row: Row, i) =>
+                        <RowComponent row={row} key={i} selectedRows={selectedRows} />
                     )
                     : <Loading />}
             </div>

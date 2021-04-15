@@ -2,7 +2,7 @@ import Link from "next/link"
 import styles from "../styles/app.module.scss"
 import LogInStyles from "../styles/components.LogInForm.module.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faPlus, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faCross, faPencilAlt, faPlus, faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { HEADERS, ModalType, RowPostType } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
@@ -25,9 +25,7 @@ const App = () => {
         isOpen: false
     })
     const [onConfirm,] = useState<() => void>(() => addNewRow)
-    /* const [selectedRows, setSelectedRows] = useState<HTMLDivElement>()*/
-
-
+    const [selectedRows, setSelectedRows] = useState<string[]>([])
 
     function updateRows() {
         fetch("/api/row", {
@@ -39,6 +37,7 @@ const App = () => {
             })
         }).then(res => res.json()).then((data: Row[]) => {
             if (data) {
+                setRows([])
                 setRows(data)
             } else {
                 console.log("app.tsx|33|: Data podre")
@@ -98,6 +97,28 @@ const App = () => {
                     </div>
                 </div>
                 <div className={styles.navRight}>
+                    <button className={clsx(LogInStyles.button, styles.buttonDelete)} onClick={() => {
+                        selectedRows.length > 0 &&
+                            fetch("/api/row", {
+                                method: "DELETE",
+                                headers: HEADERS,
+                                body: JSON.stringify({
+                                    uuid: selectedRows
+                                })
+                            }).then(res => res.json()).then(data => {
+                                if (data.success) {
+
+                                    updateRows()
+                                }
+                            })
+                    }}>
+                        <FontAwesomeIcon icon={faTimes} />
+                        Delete
+                    </button>
+                    <button className={clsx(LogInStyles.button, styles.buttonEdit)} disabled={selectedRows.length >= 2} onClick={(e) => { console.log("edit clicked") }}>
+                        <FontAwesomeIcon icon={faPencilAlt} />
+                        Edit
+                    </button>
                     <button className={clsx(LogInStyles.button, styles.buttonNewRow)}>
                         <FontAwesomeIcon icon={faUser} />
                         {user?.username}
@@ -105,7 +126,13 @@ const App = () => {
                 </div>
             </nav>
             <div className={clsx(styles.wrapper, styles.flex)}>
-                <RowsOld rows={rows} inputVal={inputVal.toLowerCase()} />
+                <RowsOld rows={rows && (rows as Row[]).sort((a: Row, b: Row) =>
+                    a.site.localeCompare(b.site) || a.email.localeCompare(b.email)
+                ).filter((v: Row) =>
+                    v.site.toLowerCase().includes(inputVal) ||
+                    v.email.toLowerCase().includes(inputVal) ||
+                    v.username?.toLowerCase()?.includes(inputVal)
+                )} selectedRows={setSelectedRows} />
             </div>
             <NotificationContainer />
         </div>

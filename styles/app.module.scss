@@ -50,7 +50,7 @@
 			display: flex;
 			align-items: center;
 			justify-content: flex-end;
-			button {
+			&:last-child {
 				margin-right: 1em;
 			}
 		}
@@ -61,6 +61,32 @@
 			justify-content: center;
 			align-items: center;
 			font-weight: 600;
+
+			&.buttonDelete {
+				color: $red;
+				border-color: $red;
+				&:hover {
+					background-color: $red;
+					color: black;
+				}
+			}
+			&.buttonEdit {
+				&:not(:disabled) {
+					color: $info-blue;
+					border-color: $info-blue;
+					&:hover {
+						background-color: $info-blue;
+						color: black;
+					}
+				}
+				&:disabled {
+					border-color: $red;
+					&:hover {
+						animation: shake 0.5s;
+						animation-iteration-count: infinite;
+					}
+				}
+			}
 			&.buttonNewRow {
 				color: #28a745;
 				&:hover {
@@ -74,7 +100,7 @@
 				}
 			}
 			svg {
-				margin-right: 0.5em;
+				margin-right: 0.4em;
 			}
 		}
 	}
@@ -83,4 +109,18 @@
 		width: 100vw;
 		height: calc(100vh - #{$nav-height});
 	}
+}
+
+@keyframes shake {
+	0% { transform: translateX(1px); }
+	10% { transform: translateX(-1px); }
+	20% { transform: translateX(-2px); }
+	30% { transform: translateX(2px); }
+	40% { transform: translateX(1px); }
+	50% { transform: translateX(-1px); }
+	60% { transform: translateX(-2px); }
+	70% { transform: translateX(2px); }
+	80% { transform: translateX(-1px); }
+	90% { transform: translateX(1px); }
+	100% { transform: translateX(1px); }
 }
