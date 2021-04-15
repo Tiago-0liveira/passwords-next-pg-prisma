@@ -3,9 +3,10 @@ import { faCheckSquare, faSquare } from "@fortawesome/free-regular-svg-icons"
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { FormEvent, useState } from "react"
 import { ModalNewRowData, ModalProps } from "../@types/types"
-import { HEADERS, LogInPlatforms, ModalEventName, ModalType, RowPostType } from "../constants/consts"
+import { HEADERS, LogInPlatformIconColors, LogInPlatforms, ModalEventName, ModalType, RowPostType } from "../constants/consts"
 import styles from "../styles/component.modal.module.scss"
 import clsx from "clsx"
+import { faGoogle } from "@fortawesome/free-brands-svg-icons"
 
 const Modal = ({ setModalData, type, isOpen, onConfirm, data, notificationManager, extraData }: ModalProps) => {
     const [LogInWithPlatForm, setLogInWithPlatForm] = useState<boolean>(false)
@@ -15,6 +16,7 @@ const Modal = ({ setModalData, type, isOpen, onConfirm, data, notificationManage
     const [LogInPlatform, setLogInPlatform] = useState<string>("")
     const [Username, setusername] = useState<string>("")
     const [Password, setpassword] = useState<string>("")
+
 
     const submitConfirmation = () => {
         onConfirm()
@@ -128,39 +130,23 @@ const Modal = ({ setModalData, type, isOpen, onConfirm, data, notificationManage
 
                         {LogInWithPlatForm ?
                             <>
-                                <div className={styles.inputDiv}>
-                                    {/* <label htmlFor="LogInPlatform" ><FontAwesomeIcon icon={faLink} size={"lg"} /> Log In With Platform ?</label>
+                                <div className={clsx(styles.inputDiv, styles.inputDivPassword, styles.LogInPlatformDiv)}>
+                                    <label htmlFor="LogInPlatform" ><FontAwesomeIcon icon={faLink} size={"lg"} /> Log In With Platform ?</label>
+                                    <button disabled>
+                                        <FontAwesomeIcon icon={LogInPlatforms.find(({ value }) =>
+                                            value === LogInPlatform
+                                        )?.icon || faGoogle} size="lg" color={LogInPlatformIconColors[LogInPlatform] || "white"} />
+                                    </button>
                                     <select
                                         onChange={(e) => { setLogInPlatform(e.target.value) }}
                                         className={clsx(styles.LogInPlatFormsInput, styles.input)}
                                         name="LogInPlatform"
                                     >
+                                        <option value="" disabled hidden className={styles.defaultOption}>Log In Platform</option>
                                         {LogInPlatforms.map(
-                                            ({ value, icon }, i) => <div key={i} >
-                                                <FontAwesomeIcon icon={icon} />
-                                                <label htmlFor="LogInPlatform">LogInPlatform </label>
-                                            </div>
+                                            ({ value }, i) => <option key={i} value={value} >{value}</option>
                                         )}
-                                        ///
-                                        ///  MAKE THIS LOOK GOOD WITH 
-                                        ///  DIVS INSTEAD OF SELECT AND OPTION
-                                        ///
-                                    </select> */}
-
-
-                                    <label htmlFor="LogInPlatform" ><FontAwesomeIcon icon={faLink} size={"lg"} /> Log In With Platform ?</label>
-                                    <input
-                                        onChange={(e) => { setLogInPlatform(e.target.value) }}
-                                        type="text"
-                                        className={clsx(styles.LogInPlatFormsInput, styles.input)}
-                                        name="LogInPlatform"
-                                        list="LogInPlatforms"
-                                    />
-                                    <datalist id="LogInPlatforms">
-                                        {LogInPlatforms.map(
-                                            ({ value, icon }, i) => <option key={i} value={value} />
-                                        )}
-                                    </datalist>
+                                    </select>
                                 </div>
                             </> : <></>}
 

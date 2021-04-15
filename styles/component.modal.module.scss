@@ -102,11 +102,6 @@
 							margin-right: 0.3em;
 						}
 					}
-					&:focus-within {
-						svg {
-							color: lighten(black, 10%);
-						}
-					}
 					.input {
 						width: 100%;
 						padding: 10px 15px;
@@ -150,6 +145,27 @@
 							}
 							&:hover {
 								background-color: darken($darker-white, 2%);
+							}
+						}
+					}
+					&.LogInPlatformDiv {
+						button {
+							border-left: 0;
+							border-right: 2px solid darken($darker-white, 20%);
+							border-radius: 5px 0 0 5px;
+							flex: 0.12;
+							height: 3.2em;
+							align-items: center;
+							justify-content: center;
+							display: flex;
+							svg {
+								width: 1.2em;
+							}
+						}
+						select {
+							user-select: none;
+							&:focus {
+								outline: none;
 							}
 						}
 					}
