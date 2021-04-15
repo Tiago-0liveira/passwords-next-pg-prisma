@@ -1,7 +1,7 @@
 import { LogInPlatform, User } from "@prisma/client";
 import { NextApiRequest } from "next"
 import { Dispatch, SetStateAction } from "react";
-import { LogInFormState, UserPostType } from "../constants/consts";
+import { LogInFormState, ModalType, UserPostType } from "../constants/consts";
 
 export default {}
 
