@@ -63,11 +63,22 @@
 			font-weight: 600;
 
 			&.buttonDelete {
-				color: $red;
-				border-color: $red;
-				&:hover {
-					background-color: $red;
-					color: black;
+				&:not(:disabled) {
+					color: $red;
+					border-color: $red;
+					&:hover {
+						background-color: $red;
+						color: black;
+					}
+				}
+				&:disabled {
+					color: $red;
+					border-color: $red;
+					&:hover {
+						background-color: $red;
+						color: black;
+						animation: shake 0.5s infinite;
+					}
 				}
 			}
 			&.buttonEdit {
@@ -80,10 +91,12 @@
 					}
 				}
 				&:disabled {
-					border-color: $red;
+					border-color: $row-header-bg;
+					color: $row-header-bg;
 					&:hover {
-						animation: shake 0.5s;
-						animation-iteration-count: infinite;
+						color: black;
+						background-color: $row-header-bg;
+						animation: shake 0.5s infinite;
 					}
 				}
 			}
@@ -112,15 +125,37 @@
 }
 
 @keyframes shake {
-	0% { transform: translateX(1px); }
-	10% { transform: translateX(-1px); }
-	20% { transform: translateX(-2px); }
-	30% { transform: translateX(2px); }
-	40% { transform: translateX(1px); }
-	50% { transform: translateX(-1px); }
-	60% { transform: translateX(-2px); }
-	70% { transform: translateX(2px); }
-	80% { transform: translateX(-1px); }
-	90% { transform: translateX(1px); }
-	100% { transform: translateX(1px); }
+	0% {
+		transform: translateX(1px);
+	}
+	10% {
+		transform: translateX(-1px);
+	}
+	20% {
+		transform: translateX(-2px);
+	}
+	30% {
+		transform: translateX(2px);
+	}
+	40% {
+		transform: translateX(1px);
+	}
+	50% {
+		transform: translateX(-1px);
+	}
+	60% {
+		transform: translateX(-2px);
+	}
+	70% {
+		transform: translateX(2px);
+	}
+	80% {
+		transform: translateX(-1px);
+	}
+	90% {
+		transform: translateX(1px);
+	}
+	100% {
+		transform: translateX(1px);
+	}
 }

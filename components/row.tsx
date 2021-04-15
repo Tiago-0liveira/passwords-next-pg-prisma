@@ -14,7 +14,7 @@ const RowComponent = ({ row, selectedRows }: RowComponentProps) => {
     const [isOn, setIsOn] = useState(false)
 
     return (
-        <div className={styles.row} data-uuid={row.uuid} onClick={(e) => {
+        <div className={clsx(styles.row, isOn && styles.rowSelected)} data-uuid={row.uuid} onClick={(e) => {
             selectedRows(prevVal => {
                 console.log(prevVal.length + (!isOn ? 1 : 0), !isOn ? [...prevVal, row.uuid] : prevVal)
                 if (!isOn) return [...prevVal, row.uuid]
