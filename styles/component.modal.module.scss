@@ -208,15 +208,35 @@
 	&.Open {
 		z-index: 10;
 		form {
-			top: 50%;
-			transform: translateY(-50%);
+			animation: fadeIn 0.3s;
 		}
 	}
 	&.Close {
 		z-index: -10;
 		form {
-			top: -100%;
-			transform: translateY(-100%);
+			animation: fadeOut 0.3s;
 		}
+	}
+}
+
+@keyframes fadeIn {
+	0% {
+		top: -100%;
+		transform: translateY(-100%);
+	}
+	100% {
+		top: 50%;
+		transform: translateY(-50%);
+	}
+}
+
+@keyframes fadeOut {
+	0% {
+		top: 50%;
+		transform: translateY(-50%);
+	}
+	100% {
+		top: -100%;
+		transform: translateY(-100%);
 	}
 }
