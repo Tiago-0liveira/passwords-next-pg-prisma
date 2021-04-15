@@ -2,7 +2,7 @@ import Link from "next/link"
 import styles from "../styles/app.module.scss"
 import LogInStyles from "../styles/components.LogInForm.module.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faArrowLeft, faCross, faPencilAlt, faPlus, faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
+import { faArrowLeft, faPencilAlt, faPlus, faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
 import { HEADERS, ModalType, RowPostType } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
@@ -115,7 +115,7 @@ const App = () => {
                         <FontAwesomeIcon icon={faTimes} />
                         Delete
                     </button>
-                    <button className={clsx(LogInStyles.button, styles.buttonEdit)} disabled={selectedRows.length >= 2} onClick={(e) => { console.log("edit clicked") }}>
+                    <button className={clsx(LogInStyles.button, styles.buttonEdit)} disabled={selectedRows.length >= 2} onClick={() => { console.log("edit clicked") }}>
                         <FontAwesomeIcon icon={faPencilAlt} />
                         Edit
                     </button>

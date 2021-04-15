@@ -1,11 +1,10 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
-import { LogInPlatform, Row } from "@prisma/client"
+import { Row } from "@prisma/client"
 import clsx from "clsx"
 import { useState } from "react"
 import styles from "../styles/components.row.module.scss"
 import { Dispatch, SetStateAction } from "react"
 import { LogInPlatforms } from "../constants/consts"
-import { IconDefinition } from "@fortawesome/free-brands-svg-icons"
 
 type RowComponentProps = {
     row: Row,
