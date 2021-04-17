@@ -7,6 +7,7 @@ import { Dispatch, SetStateAction } from "react"
 import { LogInPlatforms } from "../constants/consts"
 import { SelectedRow } from "../@types/types"
 
+/* @ts-ignore */
 const copyToClipboard = (e) => {
     e.target.textContent && navigator.clipboard.writeText(e.target.textContent)
 }
