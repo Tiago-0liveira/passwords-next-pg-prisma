@@ -4,14 +4,14 @@ import LogInStyles from "../styles/components.LogInForm.module.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPencilAlt, faPlus, faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
 import { Dispatch, SetStateAction, useEffect, useState } from "react"
-import { HEADERS, LogInPlatforms, ModalType, RowPostType } from "../constants/consts"
+import { HEADERS, ModalType, RowPostType } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
 import { User, Row, LogInPlatform } from "@prisma/client"
 import useWBOL from "../components/hooks/useWBOL"
 import Head from "next/head"
 import RowsOld from "../components/RowsOld"
 import Modal from "../components/modal"
-import { IModalData, IModalDataBaseUpdate, IModalDataUpdateWithLogIn, IModalDataUpdateWithoutLogIn, ModalNewRowData, ModalNewRowDataBase, ModalNewRowDataWithLogin, ModalNewRowDataWithoutLogin, SelectedRow, TModalData } from "../@types/types"
+import { IModalData, IModalDataBaseUpdate, IModalDataUpdateWithLogIn, IModalDataUpdateWithoutLogIn, ModalNewRowData, SelectedRow, TModalData } from "../@types/types"
 import clsx from "clsx"
 import { NotificationContainer, NotificationManager } from 'react-notifications';
 
