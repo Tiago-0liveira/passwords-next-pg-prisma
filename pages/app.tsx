@@ -3,7 +3,7 @@ import styles from "../styles/app.module.scss"
 import LogInStyles from "../styles/components.LogInForm.module.scss"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faArrowLeft, faPencilAlt, faPlus, faTimes, faUser } from '@fortawesome/free-solid-svg-icons'
-import { Dispatch, SetStateAction, useEffect, useState } from "react"
+import { Dispatch, SetStateAction, useEffect, useRef, useState } from "react"
 import { HEADERS, ModalType, RowPostType } from "../constants/consts"
 import useUser from "../components/hooks/useUser"
 import { User, Row, LogInPlatform } from "@prisma/client"
@@ -144,7 +144,13 @@ const App = () => {
                 </div>
                 <div className={styles.navMiddle}>
                     <div className={styles.inputWrapper}>
-                        <input type="text" placeholder="Search" autoFocus onChange={(e) => setinputVal(e.target.value)} />
+
+                        <input type="text" value={inputVal} placeholder="Search" autoFocus onChange={(e) => setinputVal(e.target.value)} />
+                        {inputVal &&
+                            <div onClick={() => { setinputVal("") }}>
+                                <FontAwesomeIcon icon={faTimes} size="lg" />
+                            </div>
+                        }
                     </div>
                 </div>
                 <div className={styles.navRight}>
@@ -159,7 +165,7 @@ const App = () => {
                                     })
                                 }).then(res => res.json()).then(data => {
                                     if (data.success) {
-                                        setSelectedRows(_ => [])
+                                        setSelectedRows([])
                                         NotificationManager.success(`Deleted ${selectedRows.length} Rows!`)
                                         updateRows()
                                     }
