@@ -42,11 +42,10 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
                 })
                 if (user) {
                     const correctPass = hash(PostBody.password) === user.hashedPassword
-
                     if (correctPass) {
                         const token = v4()
                         res.status(200).json({ success: true, user, token })
-                        const newUser = await prisma.user.update({
+                        await prisma.user.update({
                             where: {
                                 username: PostBody.username
                             },
