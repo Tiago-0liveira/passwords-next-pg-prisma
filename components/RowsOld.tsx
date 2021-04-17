@@ -4,12 +4,12 @@ import Loading from "./loading"
 import RowComponent from "./row"
 import clsx from "clsx"
 import { Dispatch, SetStateAction } from "react"
+import { SelectedRow } from "../@types/types"
 interface RowsOldProps {
     rows: Row[] | false,
-    selectedRows: Dispatch<SetStateAction<string[]>>
+    selectedRows: Dispatch<SetStateAction<SelectedRow[]>>
 }
 const RowsOld = ({ rows, selectedRows }: RowsOldProps) => {
-
     return (
         <div className={styles.content}>
             <div className={styles.header}>
@@ -31,8 +31,8 @@ const RowsOld = ({ rows, selectedRows }: RowsOldProps) => {
             </div>
             <div className={clsx(styles.rows, !rows && styles.loading)}>
                 {rows ?
-                    rows.map((row: Row, i) =>
-                        <RowComponent row={row} key={i} selectedRows={selectedRows} />
+                    rows.map((row: Row) =>
+                        <RowComponent row={row} key={row.uuid} selectedRows={selectedRows} />
                     )
                     : <Loading />}
             </div>
