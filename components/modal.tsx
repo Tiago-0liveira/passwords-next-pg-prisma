@@ -176,7 +176,6 @@ const Modal = ({ setModalData, ModalData: { type, update, isOpen, onConfirm, dat
     const submitForm = (e: FormEvent) => {
         e.preventDefault()
         const submitter: HTMLButtonElement = e.nativeEvent.submitter
-        console.log(submitter.name)
         switch (submitter.name) {
             case ModalEventName.Confirm:
                 return type === ModalType.Confirmation ? submitConfirmation() : submitNew()

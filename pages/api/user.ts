@@ -86,7 +86,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         }
     } else if (req.method === "PUT") {
         const PutBody = req.body as IApiBodyUserPut
-        console.log(`PutBody -> ${JSON.stringify(PutBody)}`)
         try {
             const isAuth = await prisma.user.findFirst({
                 where: {

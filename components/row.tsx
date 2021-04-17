@@ -19,10 +19,6 @@ const RowComponent = ({ row, selectedRows }: RowComponentProps) => {
             selectedRows(prevVal => {
                 if (!isOn) return [...prevVal, { uuid: theRow.uuid, setIsOn, setRow }]
                 else {
-                    console.log(`row.tsx|25|`)
-                    console.log(prevVal.filter(prevRow => {
-                        return prevRow.uuid !== theRow.uuid
-                    }))
                     return prevVal.filter(prevRow => {
                         return prevRow.uuid !== theRow.uuid
                     })

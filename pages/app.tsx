@@ -45,7 +45,6 @@ const App = () => {
         })
     }
     function addNewRow(Modaldata: ModalNewRowData) {
-        console.log(ModalData)
         fetch("/api/row", {
             method: "POST",
             headers: HEADERS,
@@ -55,7 +54,6 @@ const App = () => {
             })
         }).then(res => res.json()).then(data => {
             if (data.success) {
-                console.log(`modal.tsx|43|:->${JSON.stringify(data.row)} added with success`)
                 NotificationManager.success("Successfully Added!")
                 setModalData(prevData => { return { ...prevData, isOpen: false } })
                 setRows(prevVal => { return [...(prevVal as Row[]), data.row] })
@@ -146,14 +144,13 @@ const App = () => {
                 </div>
                 <div className={styles.navMiddle}>
                     <div className={styles.inputWrapper}>
-                        <input type="text" placeholder="Search" autoFocus onLoad={(e) => { console.log(e) }} onChange={(e) => setinputVal(e.target.value)} />
+                        <input type="text" placeholder="Search" autoFocus onChange={(e) => setinputVal(e.target.value)} />
                     </div>
                 </div>
                 <div className={styles.navRight}>
                     <button className={clsx(LogInStyles.button, styles.buttonDelete)} disabled={!(selectedRows.length > 0)}
                         onClick={() => {
                             if (selectedRows.length > 0) {
-                                console.log(selectedRows)
                                 fetch("/api/row", {
                                     method: "DELETE",
                                     headers: HEADERS,
@@ -161,7 +158,6 @@ const App = () => {
                                         uuid: selectedRows.map((row: SelectedRow) => row.uuid)
                                     })
                                 }).then(res => res.json()).then(data => {
-                                    console.log(selectedRows)
                                     if (data.success) {
                                         setSelectedRows(_ => [])
                                         NotificationManager.success(`Deleted ${selectedRows.length} Rows!`)
