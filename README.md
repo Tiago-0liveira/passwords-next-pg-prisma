@@ -16,14 +16,16 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 
 ### TODO:
 
--   [ ]: Rows can store links so they have images for each group
 -   [x]: Sort depending on sites or usernames
 -   [x]: Be able to store data like if i logged in with google auth
+-   [x]: Modal For Creating, updating and confirming deletion
+-   [ ]: Rows can store links so they have images for each group
 -   [ ]: Have a switch from old mode to new mode
 -   [ ]: Old mode will be rows and new mode will be beautiful cards
 -   [ ]: Cool Switch form old to new
 -   [ ]: UseState for that old/new thing
--   [x]: Modal For Creating, updating and confirming deletion
 -   [ ]: Db model holding groups(site names) with name, photoUrl and things
+-   [ ]: Add model for holding themes colors and things
+-   [ ]: Admin Panel for viewing every model in database and be able to change things too
 
 #### Dev -> [Tiago](https://github.com/Tiago-0liveira)
