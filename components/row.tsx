@@ -1,7 +1,7 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome"
 import { Row } from "@prisma/client"
 import clsx from "clsx"
-import { useCallback, useState } from "react"
+import { useState } from "react"
 import styles from "../styles/components.row.module.scss"
 import { Dispatch, SetStateAction } from "react"
 import { LogInPlatforms } from "../constants/consts"
