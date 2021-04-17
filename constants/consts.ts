@@ -34,6 +34,18 @@ export enum ModalEventName {
     Confirm = "Confirm",
     Cancel = "Cancel"
 }
+export enum ModalActionType {
+    UpWiPlatform,/* update with platform */
+    UpWoPlatform, /* update without platform */
+    setSite, /* update site */
+    setEmail, /* update email */
+    setLogInPlatform, /* update LogInPlatform */
+    setUsername, /* update Username */
+    setPassword, /* update Password */
+    TogglePassword, /* toggle password */
+    ToggleLogInWithPlatform, /* toggle logInWithPlatform */
+    Reset
+}
 import { faGithub, faReddit, faFacebook, faGoogle, faDiscord, IconDefinition } from "@fortawesome/free-brands-svg-icons"
 
 export const LogInPlatforms:

@@ -1,7 +1,7 @@
-import { LogInPlatform, User } from "@prisma/client";
+import { LogInPlatform, User, Row } from "@prisma/client";
 import { NextApiRequest } from "next"
 import { Dispatch, SetStateAction } from "react";
-import { LogInFormState, ModalType, UserPostType } from "../constants/consts";
+import { LogInFormState, ModalType, UserPostType, ModalActionType } from "../constants/consts";
 
 export default {}
 
@@ -59,32 +59,31 @@ export type TModalData = {
 export interface IModalData {
     type: ModalType,
     isOpen: boolean,
-    data?: TModalData
+    data?: TModalData,
+    update?: IModalDataUpdateWithLogIn | IModalDataUpdateWithoutLogIn,
+    onConfirm: Function
 }
-type notificationManager = (
-    message: string,
-    title?: string,
-    timeOut?: number,
-    callback?: Function,
-    priority?: boolean
-) => void
-export interface ModalProps extends IModalData {
-    setModalData: Dispatch<SetStateAction<IModalData>>,
-    notificationManager: {
-        info: notificationManager
-        error: notificationManager
-        success: notificationManager
-        warning: notificationManagern
-    },
-    extraData: { userId: number | undefined }
-    onConfirm: (row?: Row) => void
+export type ModalProps = {
+    setModalData: Dispatch<SetStateAction<IModalData>>
+    ModalData: IModalData
 }
-type ModalNewRowDataBase = {
+export interface IModalDataBaseUpdate extends ModalNewRowDataBase {
+    uuid: string
+}
+export interface IModalDataUpdateWithLogIn extends IModalDataBaseUpdate {
+    logInWithPlatform: LogInPlatform,
+}
+export interface IModalDataUpdateWithoutLogIn extends IModalDataBaseUpdate {
+    username: string,
+    password: string
+}
+
+export type ModalNewRowDataBase = {
     site: string,
     email: string,
 }
 export interface ModalNewRowDataWithLogin extends ModalNewRowDataBase {
-    logInWithPlatform: string,
+    logInWithPlatform: LogInPlatform,
 }
 export interface ModalNewRowDataWithoutLogin extends ModalNewRowDataBase {
     username: string,
@@ -92,3 +91,34 @@ export interface ModalNewRowDataWithoutLogin extends ModalNewRowDataBase {
 }
 
 export type ModalNewRowData = ModalNewRowDataWithLogin | ModalNewRowDataWithoutLogin
+
+export type ModalReducerState = {
+    Site: string,
+    Email: string,
+    LogInPlatform: LogInPlatform,
+    Username: string,
+    Password: string,
+    LogInWithPlatForm: boolean,
+    passwordShow: boolean,
+}
+export type ModalUseReducerAction =
+    { type: ModalActionType.UpWiPlatform, payload: ModalNewRowDataWithLogin } |
+    { type: ModalActionType.UpWoPlatform, payload: ModalNewRowDataWithoutLogin } |
+    { type: ModalActionType.setSite, payload: { Site: string } } |
+    { type: ModalActionType.setEmail, payload: { Email: string } } |
+    { type: ModalActionType.setLogInPlatform, payload: { LogInPlatform: string } } |
+    { type: ModalActionType.setUsername, payload: { Username: string } } |
+    { type: ModalActionType.setPassword, payload: { Password: string } } |
+    { type: ModalActionType.ToggleLogInWithPlatform } |
+    { type: ModalActionType.TogglePassword } |
+    { type: ModalActionType.Reset }
+
+export type SelectedRow = {
+    uuid: string,
+    setIsOn: Dispatch<SetStateAction<boolean>>,
+    setRow: Dispatch<SetStateAction<Row>>
+}
+export type onConfirmArgs = {
+    uuid: string,
+    data: ModalNewRowData
+}
