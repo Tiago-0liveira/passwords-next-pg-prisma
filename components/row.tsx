@@ -7,6 +7,9 @@ import { Dispatch, SetStateAction } from "react"
 import { LogInPlatforms } from "../constants/consts"
 import { SelectedRow } from "../@types/types"
 
+const copyToClipboard = (e) => {
+    e.target.textContent && navigator.clipboard.writeText(e.target.textContent)
+}
 type RowComponentProps = {
     row: Row,
     selectedRows: Dispatch<SetStateAction<SelectedRow[]>>
@@ -28,19 +31,19 @@ const RowComponent = ({ row, selectedRows }: RowComponentProps) => {
         }}>
             <div className={clsx(styles.SelectedDiv, isOn && styles.On)} />
             <div>
-                <span>
+                <span onClick={copyToClipboard}>
                     {theRow.site}
                 </span>
             </div>
             <div>
-                <span>
+                <span onClick={copyToClipboard}>
                     {theRow.email}
                 </span>
             </div>
             <div className={clsx(theRow.password || styles.password)}>
 
                 {theRow.password ?
-                    <span>{theRow.password}</span>
+                    <span onClick={copyToClipboard}>{theRow.password}</span>
                     : <span>Logged In With
                         {(() => {
                             const icon = LogInPlatforms.find(({ value }) =>
