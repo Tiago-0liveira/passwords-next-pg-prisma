@@ -23,7 +23,7 @@ This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next
 -   [ ]: Old mode will be rows and new mode will be beautiful cards
 -   [ ]: Cool Switch form old to new
 -   [ ]: UseState for that old/new thing
--   [ ]: Modal For Creating, updating and confirming deletion
+-   [x]: Modal For Creating, updating and confirming deletion
 -   [ ]: Db model holding groups(site names) with name, photoUrl and things
 
 #### Dev -> [Tiago](https://github.com/Tiago-0liveira)
